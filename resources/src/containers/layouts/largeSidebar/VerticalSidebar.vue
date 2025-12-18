@@ -555,6 +555,7 @@
               currentUserPermissions.includes('Suppliers_view') ||
               currentUserPermissions.includes('customers_import') ||
               currentUserPermissions.includes('Suppliers_import') ||
+              currentUserPermissions.includes('service_check_view') ||
               currentUserPermissions.includes('users_view')
             )"
             :class="{ active: isActiveRoute('People'), 'has-submenu': true, open: openMenus.includes('People') }"
@@ -578,6 +579,13 @@
                   <span>Import Customers</span>
                 </router-link>
               </li>
+              <!-- SERVICE CHECK - ADD THIS -->
+            <li class="submenu-item" v-if="currentUserPermissions && currentUserPermissions.includes('service_check_view')">
+            <router-link to="/app/People/service_check" class="submenu-link">
+                <i class="submenu-icon i-Checked-User"></i>
+                <span>{{ $t('Service_Check') }}</span>
+            </router-link>
+            </li>
               <li class="submenu-item" v-if="currentUserPermissions && currentUserPermissions.includes('Suppliers_view')">
                 <router-link to="/app/People/Suppliers" class="submenu-link">
                   <i class="submenu-icon i-Administrator"></i>

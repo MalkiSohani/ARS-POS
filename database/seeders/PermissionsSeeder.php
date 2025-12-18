@@ -560,7 +560,7 @@ class PermissionsSeeder extends Seeder
 			'id'    => 136,
 			'name'  => 'payroll',
 		],
-		
+
 		[
 			'id'    => 137,
 			'name'  => 'projects',
@@ -580,7 +580,7 @@ class PermissionsSeeder extends Seeder
 			'id'    => 140,
 			'name'  => 'translations_settings',
 		],
-		
+
 
 		[
 			'id'    => 141,
@@ -720,12 +720,31 @@ class PermissionsSeeder extends Seeder
 			'id'    => 168,
 			'name'  => 'quickbooks_settings',
 		],
+        [
+			'id'    => 169,
+			'name'  => 'service_check_view',
+		],
 
-		
+		[
+			'id'    => 170,
+			'name'  => 'service_check_add',
+		],
+
+		[
+			'id'    => 171,
+			'name'  => 'service_check_edit',
+		],
+
+		[
+			'id'    => 172,
+			'name'  => 'service_check_delete',
+		],
+
+
 		)
 	);
 	}
-	
 
-	
+
+
 }

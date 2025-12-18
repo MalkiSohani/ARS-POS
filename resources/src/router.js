@@ -26,9 +26,9 @@ const baseRoutes = [
                     import(
                         /* webpackChunkName: "dashboard" */ "./views/app/dashboard/dashboard"
                     )
-            
+
                 },
-               
+
             //Products
             {
                 path: "/app/products",
@@ -312,7 +312,7 @@ const baseRoutes = [
                     )
             },
 
-          
+
 
             //expenses
             {
@@ -456,7 +456,7 @@ const baseRoutes = [
                                 /* webpackChunkName: "change_to_sale" */ "./views/app/pages/sales/change_to_sale.vue"
                             )
                     },
-                    
+
                 ]
             },
 
@@ -829,11 +829,11 @@ const baseRoutes = [
                                         "./views/app/pages/hrm/leaves/leave_type"
                                     )
                             },
-                           
+
                         ]
                     },
 
-                    
+
                 ]
             },
 
@@ -964,7 +964,7 @@ const baseRoutes = [
                     },
 
 
-                    
+
                     {
                         name: "CustomerLedger",
                         path: "customers/:id/ledger",
@@ -1001,6 +1001,15 @@ const baseRoutes = [
                     component: () => import(
                         /* webpackChunkName: "Import_Suppliers" */ "./views/app/pages/people/ImportSuppliers.vue"
                     )
+                    },
+
+                    {
+                        name: 'service_check',
+                        path: 'service_check',
+                        component: () => import('./views/app/pages/people/ServiceCheck.vue'
+
+                            )
+
                     },
 
                     // Users
@@ -1043,7 +1052,7 @@ const baseRoutes = [
                                 "./views/app/pages/subscription_product/subscription_product_create"
                             )
                     },
-                 
+
                     {
                         name: "subscription_product_details",
                         path: "detail/:id",
@@ -1055,8 +1064,8 @@ const baseRoutes = [
                     },
 
 
-                    
-                    
+
+
                 ]
             },
 
@@ -1275,7 +1284,7 @@ const baseRoutes = [
                                 /* webpackChunkName: "System_settings" */ "./views/app/pages/settings/system_settings"
                             )
                     }
-                  
+
                 ]
             },
             // WooCommerce Settings (optional module)
@@ -1389,7 +1398,7 @@ const baseRoutes = [
                     },
 
 
-                    
+
 
                       {
                         name: "draft_invoices_report",
@@ -1462,7 +1471,7 @@ const baseRoutes = [
                             )
                     },
 
-                    
+
 
                     {
                         name: "profit_and_loss",
@@ -1716,9 +1725,9 @@ const baseRoutes = [
             import(/* webpackChunkName: "pos" */ "./views/app/pages/pos")
     },
 
-   
 
-   
+
+
 
     {
         name: "pos_draft",

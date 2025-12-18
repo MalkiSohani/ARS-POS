@@ -678,6 +678,15 @@ Route::middleware(['auth:api', 'Is_Active', 'request.safety'])->group(function (
     Route::get("generate_new_backup", "BackupController@Generate_Backup");
     Route::delete("delete_backup/{name}", "BackupController@Delete_Backup");
 
+    // Service Checks
+
+    Route::get('service_checks', 'ServiceCheckController@index');
+    Route::post('service_checks', 'ServiceCheckController@store');
+    Route::get('service_checks/{id}', 'ServiceCheckController@show');
+    Route::put('service_checks/{id}', 'ServiceCheckController@update');
+    Route::delete('service_checks/{id}', 'ServiceCheckController@destroy');
+    Route::post('service_checks/delete/by_selection', 'ServiceCheckController@delete_by_selection');
+
 
     //------------------------------- Module Settings ------------------------\\
 
@@ -734,3 +743,7 @@ Route::get('pos/customer-display/last-cart', [CustomerDisplayController::class, 
 
 
     // Route::get('/available-modules', 'ModuleSettingsController@get_modules_enabled');
+
+
+
+
