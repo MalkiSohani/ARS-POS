@@ -54,6 +54,15 @@
             <i class="i-Download"></i>
             {{ $t("import_products") }}
           </router-link>
+          <!--  Purchases Button - Same line, compact style -->
+            <router-link
+                v-if="currentUserPermissions && currentUserPermissions.includes('Purchases_add')"
+                to="/app/purchases/store"
+                class="btn btn-warning btn-sm m-1 text-white"
+            >
+                <i class="i-Receipt"></i>
+                {{ $t("AddPurchase") }}
+            </router-link>
 
           <router-link
             class="btn-sm btn btn-primary btn-icon m-1"
@@ -63,6 +72,8 @@
             <span class="ul-btn__icon"><i class="i-Add"></i></span>
             <span class="ul-btn__text ml-1">{{$t('Add')}}</span>
           </router-link>
+
+
         </div>
 
         <!-- SAFE rendering: never v-html for user text -->
@@ -359,7 +370,7 @@ export default {
           rtl ? pdf.text(title, pageW - marginX, 38, { align: 'right' })
               : pdf.text(title, marginX, 38);
 
-          
+
 
           // Reset text color
           pdf.setTextColor(33);

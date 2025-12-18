@@ -387,6 +387,36 @@
               </div>
             </div>
 
+             <!-- ==================== ADD SERVICE FIELDS HERE ==================== -->
+            <!-- Service Fields Section -->
+            <div class="service-fields-section">
+                <div class="service-row">
+                <label>{{$t('Vehicle Number')}}</label>
+                <input v-model="sale.vehicle_number" type="text" :placeholder="$t('Enter Vehicle Number')" class="flat-input" />
+                </div>
+                <div class="service-row">
+                <label>{{$t('Meter Reading')}}</label>
+                <input v-model="sale.meter_reading" type="text" :placeholder="$t('Enter Meter Reading')" class="flat-input" />
+                </div>
+                <div class="service-row">
+                <label>{{$t('Job No')}}</label>
+                <input v-model="sale.job_no" type="text" :placeholder="$t('Enter Job No')" class="flat-input" />
+                </div>
+                <div class="service-row">
+                <label>{{$t('Time In')}}</label>
+                <input v-model="sale.time_in" type="time" class="flat-input" />
+                </div>
+                <div class="service-row">
+                <label>{{$t('Time Out')}}</label>
+                <input v-model="sale.time_out" type="time" class="flat-input" />
+                </div>
+                <div class="service-row">
+                <label>{{$t('Next Service Due')}}</label>
+                <input v-model="sale.next_service_due" type="date" class="flat-input" />
+                </div>
+            </div>
+            <!-- ==================== END SERVICE FIELDS ==================== -->
+
             <!-- Totals -->
             <div class="summary-totals">
               <div class="total-row">
@@ -488,6 +518,12 @@
                   <span v-show="pos_settings.show_phone">{{$t('Phone')}} : {{invoice_pos.setting.CompanyPhone}} <br></span>
                   <span v-show="pos_settings.show_customer">{{$t('Customer')}} : {{invoice_pos.sale.client_name}} <br></span>
                   <span v-show="pos_settings.show_Warehouse">{{$t('warehouse')}} : {{invoice_pos.sale.warehouse_name}} <br></span>
+                  <span v-show="invoice_pos.sale.vehicle_number">{{$t('Vehicle Number')}} : {{invoice_pos.sale.vehicle_number}} <br></span>
+                  <span v-show="invoice_pos.sale.meter_reading">{{$t('Meter Reading')}} : {{invoice_pos.sale.meter_reading}} <br></span>
+                  <span v-show="invoice_pos.sale.job_no">{{$t('Job No')}} : {{invoice_pos.sale.job_no}} <br></span>
+                  <span v-show="invoice_pos.sale.time_in">{{$t('Time In')}} : {{invoice_pos.sale.time_in}} <br></span>
+                  <span v-show="invoice_pos.sale.time_out">{{$t('Time Out')}} : {{invoice_pos.sale.time_out}} <br></span>
+                  <span v-show="invoice_pos.sale.next_service_due">{{$t('Next Service Due')}} : {{invoice_pos.sale.next_service_due}} <br></span>
                 </p>
               </div>
 
@@ -608,6 +644,8 @@
             <th>{{ $t('date') }}</th>
             <th>{{ $t('Reference') }}</th>
             <th>{{ $t('Customer') }}</th>
+            <th>{{ $t('Vehicle Number') }}</th>
+            <th>{{ $t('Meter Reading') }}</th>
             <th class="text-right">{{ $t('Total') }}</th>
             <th class="text-right">{{ $t('Action') }}</th>
           </tr>
@@ -617,6 +655,8 @@
             <td>{{ d.date }}</td>
             <td>{{ d.Ref }}</td>
             <td>{{ d.client_name }}</td>
+            <td>{{ d.vehicle_number || '-' }}</td>
+            <td>{{ d.meter_reading || '-' }}</td>
             <td class="text-right">{{ formatNumber(d.GrandTotal, 2) }}</td>
             <td class="text-right">
               <b-button size="sm" variant="outline-success" class="mr-2" @click="loadDraftSale(d.id)" :disabled="openingDraftId === d.id" :title="openingDraftId === d.id ? $t('Loading') : $t('Open')">
@@ -1227,6 +1267,13 @@ export default {
         discount: 0,
         TaxNet: 0,
         notes:'',
+        vehicle_number: '',
+        meter_reading: '',
+        job_no: '',
+        time_in: '',
+        time_out: '',
+        next_service_due: '',
+
       },
       client: {
         id: "",
@@ -1814,6 +1861,13 @@ export default {
           notes: this.sale.notes,
           details: this.details,
           GrandTotal: this.GrandTotal,
+          vehicle_number: this.sale.vehicle_number || null,
+          meter_reading: this.sale.meter_reading || null,
+          job_no: this.sale.job_no || null,
+          time_in: this.sale.time_in || null,
+          time_out: this.sale.time_out || null,
+          next_service_due: this.sale.next_service_due || null,
+
         })
         .then(response => {
           if (response.data.success === true) {
@@ -1908,6 +1962,12 @@ export default {
             discount_from_points: this.discount_from_points,
             used_points: this.used_points,
             draft_sale_id: this.draft_sale_id || undefined,
+            vehicle_number: this.sale.vehicle_number || null,
+            meter_reading: this.sale.meter_reading || null,
+            job_no: this.sale.job_no || null,
+            time_in: this.sale.time_in || null,
+            time_out: this.sale.time_out || null,
+            next_service_due: this.sale.next_service_due || null,
           })
           .then(response => {
             if (response.data.success === true) {
@@ -2564,6 +2624,12 @@ export default {
       this.sale.shipping = 0;
       this.sale.discount = 0;
       this.sale.notes = '';
+      this.sale.vehicle_number = '';
+      this.sale.meter_reading = '';
+      this.sale.job_no = '';
+      this.sale.time_in = '';
+      this.sale.time_out = '';
+      this.sale.next_service_due = '';
       this.GrandTotal = 0;
       this.total = 0;
       this.category_id = "";
@@ -2788,6 +2854,13 @@ export default {
           this.sale.discount = saleData.discount || 0;
           this.sale.shipping = saleData.shipping || 0;
           this.sale.notes = saleData.notes || '';
+
+          this.sale.vehicle_number = saleData.vehicle_number || '';
+          this.sale.meter_reading = saleData.meter_reading || '';
+          this.sale.job_no = saleData.job_no || '';
+          this.sale.time_in = saleData.time_in || '';
+          this.sale.time_out = saleData.time_out || '';
+          this.sale.next_service_due = saleData.next_service_due || '';
 
           // Map draft details to POS details shape (ensuring fields required by POS)
           const incoming = Array.isArray(data.details) ? data.details : [];
@@ -3419,6 +3492,12 @@ export default {
           ${ps && ps.show_phone ? `<span>${this.$t ? this.$t('Phone') : 'Phone'} : ${set.CompanyPhone || ''} <br></span>` : ''}
           ${ps && ps.show_customer ? `<span>${this.$t ? this.$t('Customer') : 'Customer'} : ${s.client_name || ''} <br></span>` : ''}
           ${ps && ps.show_Warehouse ? `<span>${this.$t ? this.$t('warehouse') : 'Warehouse'} : ${s.warehouse_name || ''} <br></span>` : ''}
+          ${s.vehicle_number ? `<span>${this.$t ? this.$t('Vehicle Number') : 'Vehicle Number'} : ${s.vehicle_number} <br></span>` : ''}
+          ${s.meter_reading ? `<span>${this.$t ? this.$t('Meter Reading') : 'Meter Reading'} : ${s.meter_reading} <br></span>` : ''}
+          ${s.job_no ? `<span>${this.$t ? this.$t('Job No') : 'Job No'} : ${s.job_no} <br></span>` : ''}
+          ${s.time_in ? `<span>${this.$t ? this.$t('Time In') : 'Time In'} : ${s.time_in} <br></span>` : ''}
+          ${s.time_out ? `<span>${this.$t ? this.$t('Time Out') : 'Time Out'} : ${s.time_out} <br></span>` : ''}
+          ${s.next_service_due ? `<span>${this.$t ? this.$t('Next Service Due') : 'Next Service Due'} : ${s.next_service_due} <br></span>` : ''}
         `;
         const legalCopy = ps && ps.show_note ? `
           <div id="legalcopy" class="ml-2">
@@ -6454,6 +6533,93 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
   i {
     margin-right: 8px;
+  }
+}
+/* ============================================
+   SERVICE FIELDS SECTION
+   ============================================ */
+.service-fields-section {
+  padding: 12px 20px;
+  border-bottom: 1px solid $color-border-light;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+  background: linear-gradient(to right, #fafbfc 0%, white 100%);
+}
+
+.service-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid $color-border-light;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  label {
+    font-size: $font-size-xs;
+    font-weight: 600;
+    color: $color-text-secondary;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+    min-width: 120px;
+  }
+
+  .flat-input {
+    flex: 1;
+    max-width: 200px;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 768px) {
+  .service-fields-section {
+    padding: 10px 16px;
+    gap: 6px;
+  }
+
+  .service-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 6px 0;
+
+    label {
+      min-width: auto;
+      font-size: 11px;
+    }
+
+    .flat-input {
+      width: 100%;
+      max-width: 100%;
+      font-size: 12px;
+      padding: 6px 10px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .service-fields-section {
+    padding: 8px 12px;
+  }
+
+  .service-row {
+    padding: 4px 0;
+
+    label {
+      font-size: 10px;
+    }
+
+    .flat-input {
+      font-size: 11px;
+      padding: 5px 8px;
+    }
   }
 }
 

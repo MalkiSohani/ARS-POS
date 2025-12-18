@@ -59,6 +59,12 @@ class PosController extends BaseController
             'payments' => 'required|array|min:1',
             'payments.*.amount' => 'required|numeric',
             'payments.*.payment_method_id' => 'required',
+            'vehicle_number' => 'nullable|string|max:255',
+            'meter_reading' => 'nullable|string|max:255',
+            'job_no' => 'nullable|string|max:255',
+            'time_in' => 'nullable',
+            'time_out' => 'nullable',
+            'next_service_due' => 'nullable|date',
         ]);
 
         // Block overpayment if multiple methods used
@@ -91,6 +97,12 @@ class PosController extends BaseController
             $order->statut = 'completed';
             $order->payment_statut = 'unpaid';
             $order->user_id = Auth::user()->id;
+            $order->vehicle_number = $request->input('vehicle_number');
+            $order->meter_reading = $request->input('meter_reading');
+            $order->job_no = $request->input('job_no');
+            $order->time_in = $request->input('time_in');
+            $order->time_out = $request->input('time_out');
+            $order->next_service_due = $request->input('next_service_due');
             $order->save();
 
             $data = $request['details'];
@@ -654,6 +666,8 @@ class PosController extends BaseController
             $item['Ref'] = $draft['Ref'];
             $item['warehouse_name'] = $draft['warehouse']['name'];
             $item['client_name'] = $draft['client']['name'];
+            $item['vehicle_number'] = $draft['vehicle_number'];
+            $item['meter_reading'] = $draft['meter_reading'];
             $item['GrandTotal'] = number_format($draft['GrandTotal'], 2, '.', '');
             $item['actions'] = '';
 
@@ -701,6 +715,12 @@ class PosController extends BaseController
                     'shipping' => $request->shipping,
                     'GrandTotal' => $request->GrandTotal,
                     'user_id' => Auth::user()->id,
+                    'vehicle_number' => $request->input('vehicle_number'),
+                    'meter_reading' => $request->input('meter_reading'),
+                    'job_no' => $request->input('job_no'),
+                    'time_in' => $request->input('time_in'),
+                    'time_out' => $request->input('time_out'),
+                    'next_service_due' => $request->input('next_service_due'),
                 ]);
 
                 // Replace details
@@ -740,6 +760,12 @@ class PosController extends BaseController
                 $order->shipping = $request->shipping;
                 $order->GrandTotal = $request->GrandTotal;
                 $order->user_id = Auth::user()->id;
+                $order->vehicle_number = $request->input('vehicle_number');
+                $order->meter_reading = $request->input('meter_reading');
+                $order->job_no = $request->input('job_no');
+                $order->time_in = $request->input('time_in');
+                $order->time_out = $request->input('time_out');
+                $order->next_service_due = $request->input('next_service_due');
                 $order->save();
 
                 $data = $request['details'];
@@ -1212,6 +1238,12 @@ class PosController extends BaseController
         $sale['TaxNet']   = $draft_sale_data->TaxNet;
         $sale['discount'] = $draft_sale_data->discount;
         $sale['shipping'] = $draft_sale_data->shipping;
+        $sale['vehicle_number'] = $draft_sale_data->vehicle_number;
+        $sale['meter_reading'] = $draft_sale_data->meter_reading;
+        $sale['job_no'] = $draft_sale_data->job_no;
+        $sale['time_in'] = $draft_sale_data->time_in;
+        $sale['time_out'] = $draft_sale_data->time_out;
+        $sale['next_service_due'] = $draft_sale_data->next_service_due;
         $GrandTotal = $draft_sale_data->GrandTotal;
 
         $detail_id = 0;

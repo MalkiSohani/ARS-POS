@@ -469,7 +469,13 @@ export default {
           payment_note: this.paymentNote || '',
           discount_from_points: this.discountFromPoints || 0,
           used_points: this.usedPoints || 0,
-          draft_sale_id: this.draftSaleId || null
+          draft_sale_id: this.draftSaleId || null,
+          vehicle_number: this.sale && this.sale.vehicle_number ? this.sale.vehicle_number : null,
+          meter_reading: this.sale && this.sale.meter_reading ? this.sale.meter_reading : null,
+          job_no: this.sale && this.sale.job_no ? this.sale.job_no : null,
+          time_in: this.sale && this.sale.time_in ? this.sale.time_in : null,
+          time_out: this.sale && this.sale.time_out ? this.sale.time_out : null,
+          next_service_due: this.sale && this.sale.next_service_due ? this.sale.next_service_due : null
         };
 
         const response = await axios.post(this.createPosUrl, payload);

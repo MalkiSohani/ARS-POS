@@ -10,8 +10,13 @@ class DraftSale extends Model
 
     protected $fillable = [
         'date', 'Ref','client_id', 'GrandTotal', 'TaxNet', 'tax_rate',
-         'warehouse_id', 'user_id', 'discount', 'shipping',
-         'created_at', 'updated_at', 'deleted_at',
+        'warehouse_id', 'user_id', 'discount', 'shipping','vehicle_number',
+        'meter_reading',
+        'job_no',
+        'time_in',
+        'time_out',
+        'next_service_due',
+        'created_at', 'updated_at', 'deleted_at',
     ];
 
     protected $casts = [
